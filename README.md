@@ -9,6 +9,7 @@ To do a full clean install (including running tests and building packages)
 mvn clean install 
 ```
 ## Docker environment 
+
 To run the docker container
 
 `$ docker-compose up`
@@ -17,7 +18,10 @@ To run the docker container
 `$ curl http://localhost:8080/api/meta/`
 
 ## Swagger Docs
-`$ curl http://localhost:8080/swagger-ui.html`
+
+Located at
+
+`http://localhost:8080/swagger-ui.html`
 
 ## Example usage
 
