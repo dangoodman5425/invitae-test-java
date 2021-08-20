@@ -40,3 +40,5 @@ Migrations are applied automatically on application start via Flyway. They can a
 
 `$ mvn clean install -Pmigrate`
 
+Ensure you have the environmental variables found in the schema pom defined before attempting to run migrations manually.
+
