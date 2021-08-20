@@ -1,11 +1,12 @@
 syntax = "proto3";
 
-package com.invitae.lab.platform.variant.entity.protobuf;
+package com.invitae.lab.platform.variant.kafka.protobuf;
 
 message VariantEvent {
     string id = 1;
     string gene = 2;
     string nucleotide_change = 3;
     string protein_change = 4;
-    int32 last_evaluated = 5;
+    uint32 last_evaluated = 5;
+    uint32 created = 6;
 }

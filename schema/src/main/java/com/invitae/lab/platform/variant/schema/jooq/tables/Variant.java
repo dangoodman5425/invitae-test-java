@@ -8,6 +8,7 @@ import com.invitae.lab.platform.variant.schema.jooq.Keys;
 import com.invitae.lab.platform.variant.schema.jooq.Public;
 import com.invitae.lab.platform.variant.schema.jooq.tables.records.VariantRecord;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +34,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Variant extends TableImpl<VariantRecord> {
 
-    private static final long serialVersionUID = -930496767;
+    private static final long serialVersionUID = 1668591297;
 
     /**
      * The reference instance of <code>public.variant</code>
@@ -71,7 +72,7 @@ public class Variant extends TableImpl<VariantRecord> {
     /**
      * The column <code>public.variant.last_evaluated</code>.
      */
-    public final TableField<VariantRecord, LocalDateTime> LAST_EVALUATED = createField(DSL.name("last_evaluated"), org.jooq.impl.SQLDataType.LOCALDATETIME.nullable(false).defaultValue(org.jooq.impl.DSL.field("CURRENT_TIMESTAMP", org.jooq.impl.SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<VariantRecord, LocalDate> LAST_EVALUATED = createField(DSL.name("last_evaluated"), org.jooq.impl.SQLDataType.LOCALDATE.nullable(false).defaultValue(org.jooq.impl.DSL.field("CURRENT_DATE", org.jooq.impl.SQLDataType.LOCALDATE)), this, "");
 
     /**
      * The column <code>public.variant.created</code>.
@@ -157,7 +158,7 @@ public class Variant extends TableImpl<VariantRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row6<UUID, String, String, String, LocalDateTime, LocalDateTime> fieldsRow() {
+    public Row6<UUID, String, String, String, LocalDate, LocalDateTime> fieldsRow() {
         return (Row6) super.fieldsRow();
     }
 }

@@ -1,0 +1,40 @@
+management:
+  # Enable monitoring endpoints
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+    loggers:
+      enabled: true
+
+  endpoints:
+    # Disable all endpoints other than the ones explicitly enabled
+    enabled-by-default: false
+
+    # Expose endpoints over REST
+    web:
+      exposure:
+        include: "*"
+      # Customize path mappings
+      base-path: /api/meta
+      path-mapping:
+        info: /build
+        health: /ready
+invitae:
+  data-stores:
+    postgres:
+      variant-service:
+        datasource:
+          type: com.zaxxer.hikari.HikariDataSource
+          url: jdbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+          username: ${DATABASE_USER}
+          password: ${DATABASE_PASSWORD}
+          driverClassName: org.postgresql.Driver
+        hikari:
+          pool-name: InvitaeVariantApiPool
+          maximum-pool-size: 3
+kafka:
+  bootstrap:
+    servers: ${BOOTSTRAP_SERVERS}
+  topic: ${TOPIC_NAME}

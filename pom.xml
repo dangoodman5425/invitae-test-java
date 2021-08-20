@@ -11,6 +11,7 @@
     <modules>
         <module>entity</module>
         <module>invitae-variant-api</module>
+        <module>kafka</module>
         <module>schema</module>
         <module>store</module>
     </modules>
@@ -20,14 +21,22 @@
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <invitae.version.flyway>7.5.4</invitae.version.flyway>
         <invitae.version.guava>30.0-jre</invitae.version.guava>
         <invitae.version.jooq>3.13.4</invitae.version.jooq>
+        <invitae.version.junit>5.7.1</invitae.version.junit>
+        <invitae.version.junit-platform>1.7.1</invitae.version.junit-platform>
         <invitae.version.kafka-protobuf-serde>2.2.0</invitae.version.kafka-protobuf-serde>
+        <invitae.version.maven-testing-plugin>2.22.2</invitae.version.maven-testing-plugin>
+        <invitae.version.mockito>2.23.0</invitae.version.mockito>
         <invitae.version.model-mapper>2.3.8</invitae.version.model-mapper>
         <invitae.version.model-mapper-jdk8>1.2.1</invitae.version.model-mapper-jdk8>
         <invitae.version.postgres>42.2.18</invitae.version.postgres>
         <invitae.version.protobuf>3.12.2</invitae.version.protobuf>
-        <invitae.version.spring-boot>2.3.4.RELEASE</invitae.version.spring-boot>
+        <invitae.version.protoc>3.1.0.1</invitae.version.protoc>
+        <invitae.version.spring-boot>2.3.12.RELEASE</invitae.version.spring-boot>
+        <invitae.version.springfox-swagger>2.9.2</invitae.version.springfox-swagger>
+        <invitae.version.swagger>1.5.22</invitae.version.swagger>
     </properties>
 
     <dependencyManagement>
@@ -80,6 +89,28 @@
                 <version>${invitae.version.kafka-protobuf-serde}</version>
             </dependency>
             <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${invitae.version.springfox-swagger}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${invitae.version.springfox-swagger}</version>
+            </dependency>
+            <dependency>
+                <!-- Override versions of the swagger library to circumvent a bug in 1.5.20 that the springfox library brings -->
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${invitae.version.swagger}</version>
+            </dependency>
+            <dependency>
+                <!-- Override versions of the swagger library to circumvent a bug in 1.5.20 that the springfox library brings -->
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${invitae.version.swagger}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.invitae.lab.platform.variant</groupId>
                 <artifactId>entity</artifactId>
                 <version>${project.version}</version>
@@ -94,8 +125,46 @@
                 <artifactId>schema</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.invitae.lab.platform.variant</groupId>
+                <artifactId>kafka</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${invitae.version.junit}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${invitae.version.junit}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-runner</artifactId>
+            <version>${invitae.version.junit-platform}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
+            <version>${invitae.version.junit-platform}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${invitae.version.mockito}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <build>
         <pluginManagement>
@@ -106,12 +175,29 @@
                     <version>${invitae.version.jooq}</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.flywaydb</groupId>
+                    <artifactId>flyway-maven-plugin</artifactId>
+                    <version>${invitae.version.flyway}</version>
+                </plugin>
+                <plugin>
                     <groupId>com.github.os72</groupId>
                     <artifactId>protoc-jar-maven-plugin</artifactId>
-                    <version>3.1.0.1</version>
+                    <version>${invitae.version.protoc}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${invitae.version.spring-boot}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${invitae.version.maven-testing-plugin}</version>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

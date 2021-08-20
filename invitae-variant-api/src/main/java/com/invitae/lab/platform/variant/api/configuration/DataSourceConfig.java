@@ -4,7 +4,6 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.jooq.impl.DataSourceConnectionProvider;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +12,11 @@ import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 
 import javax.sql.DataSource;
 
+/**
+ * Application configuration for data sources backing the Variant API
+ *
+ * @author dgoodman
+ */
 @Configuration
 @ComponentScan("com.invitae.lab.platform.variant.store")
 public class DataSourceConfig {

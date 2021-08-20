@@ -1,6 +1,7 @@
 package com.invitae.lab.platform.variant.api.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.invitae.lab.platform.variant.api.mapper.ModelMapperSingleton;
 import com.invitae.lab.platform.variant.entity.jackson.ObjectMapperSingleton;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
@@ -16,6 +17,11 @@ import org.springframework.context.annotation.Configuration;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Primary service-level configuration to instantiate essential beans used by the Variant API
+ *
+ * @author dgoodman
+ */
 @Configuration
 public class ServiceConfig {
 
@@ -26,24 +32,6 @@ public class ServiceConfig {
 
     @Bean
     public ModelMapper modelMapper() {
-        final ModelMapper mapper = new ModelMapper();
-
-        final Jsr310ModuleConfig config = Jsr310ModuleConfig.builder()
-                .dateTimeFormatter(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-                .dateFormatter(DateTimeFormatter.ISO_LOCAL_DATE)
-                .zoneId(ZoneOffset.UTC)
-                .build();
-        mapper.registerModule(new Jsr310Module(config));
-
-        mapper.getConfiguration()
-                // Allows mapper to convert snake_case column names to camelCase attributes
-                .setSourceNameTokenizer(NameTokenizers.UNDERSCORE)
-                // Configures model mapper to read jOOQ records
-                .addValueReader(new RecordValueReader())
-                // Indicates the builder methods are prefixed with '.with'
-                .setDestinationNameTransformer(NameTransformers.builder("with"))
-                .setDestinationNamingConvention(NamingConventions.builder("with"))
-                .setPropertyCondition(Conditions.isNotNull());
-        return mapper;
+        return ModelMapperSingleton.INSTANCE;
     }
 }

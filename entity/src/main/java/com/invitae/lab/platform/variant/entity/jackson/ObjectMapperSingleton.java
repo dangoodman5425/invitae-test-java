@@ -10,7 +10,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * {@link ObjectMapper} which is used for the serialization/deserialization of the core entities
+ * {@link ObjectMapper} which is used for the serialization/deserialization of the variant entities
  *
  * @author dgoodman
  */
@@ -18,7 +18,7 @@ public class ObjectMapperSingleton {
     public static final ObjectMapper INSTANCE;
 
     static {
-        final UnmodifiedObjectMapper objectMapper = new UnmodifiedObjectMapper();
+        final UnmodifiableObjectMapper objectMapper = new UnmodifiableObjectMapper();
         objectMapper.registerModules(new JavaTimeModule(), new Jdk8Module());
         objectMapper.configure(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
@@ -29,10 +29,10 @@ public class ObjectMapperSingleton {
         INSTANCE = objectMapper;
     }
 
-    private static class UnmodifiedObjectMapper extends ObjectMapper {
+    private static class UnmodifiableObjectMapper extends ObjectMapper {
         private final AtomicBoolean sealed;
 
-        UnmodifiedObjectMapper() {
+        UnmodifiableObjectMapper() {
             sealed = new AtomicBoolean(false);
         }
 

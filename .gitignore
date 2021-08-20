@@ -38,7 +38,9 @@ out/
 
 ### Loacal Config ###
 .env
-application-local.yaml
+*-local.yaml
 
 ### Maven Config ###
 target/
+mvnw.cmd
+.mvn

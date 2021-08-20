@@ -1,0 +1,18 @@
+invitae:
+  data-stores:
+    postgres:
+      variant-service:
+        datasource:
+          type: com.zaxxer.hikari.HikariDataSource
+          url: jdbc:postgresql://localhost:5432/test_db
+          username: test_user
+          password: test_pw
+          driverClassName: org.postgresql.Driver
+        hikari:
+          pool-name: InvitaeVariantApiPool
+          maximum-pool-size: 3
+
+kafka:
+  bootstrap:
+    servers: http://localhost:9097
+  topic: test-topic
